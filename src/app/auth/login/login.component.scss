@@ -183,50 +183,6 @@
   }
 }
 
-.submit-button {
-  width: 100%;
-  min-height: 3rem; /* Added explicit min-height to prevent collapsing */
-  padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  overflow: visible; /* Ensure content is always visible */
-  line-height: 1.5; /* Proper line height for text */
-
-  span {
-    display: inline-block; /* Ensure spans render properly */
-    white-space: nowrap; /* Prevent text wrapping issues */
-  }
-
-  &:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.3);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-
-  &:focus {
-    outline: 2px solid #667eea;
-    outline-offset: 2px;
-  }
-}
-
 .ccspinner {
   width: 1rem;
   height: 1rem;
