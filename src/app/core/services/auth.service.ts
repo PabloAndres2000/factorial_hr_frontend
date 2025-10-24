@@ -9,7 +9,7 @@ export class AuthService {
 
   login(email: string, password: string): boolean {
     // TODO: Replace with real API call
-    if (email === 'demo@user.com' && password === '1234') {
+    if (email === 'demo@user.com' && password === '123456') {
       localStorage.setItem(this.tokenKey, 'fake-jwt-token');
       this.router.navigate(['/dashboard']);
       return true;

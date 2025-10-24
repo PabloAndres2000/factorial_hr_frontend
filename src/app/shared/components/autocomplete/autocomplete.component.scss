@@ -1,0 +1,112 @@
+.autocomplete-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &.dashboard {
+    .autocomplete-field {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 0.625rem;
+      color: #ffffff;
+      font-size: 0.9375rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+      padding: 0.75rem 1rem 0.75rem 2.75rem;
+      position: relative;
+
+      input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: inherit;
+        outline: none;
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+
+      &:focus-within {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      /* Botón de limpiar */
+      button {
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+          color: #ffffff;
+        }
+      }
+
+      /* Panel de opciones */
+      .autocomplete-panel {
+        position: absolute;
+        top: calc(100% + 0.25rem);
+        left: 0;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+        background: #141414;
+        border: 1px solid #222222;
+        border-radius: 0.625rem;
+        z-index: 1000;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+
+        .autocomplete-option {
+          padding: 0.75rem 1rem;
+          cursor: pointer;
+          color: #ffffff;
+          transition: background 0.2s;
+
+          &:hover {
+            background: #1f1f1f;
+          }
+
+          &.disabled {
+            color: #888888;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  /* Variante login más clara */
+  &.login {
+    .autocomplete-field {
+      background: #ffffff;
+      color: #000000;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+
+      input {
+        color: #000000;
+
+        &::placeholder {
+          color: rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+  }
+
+  /* Variante secundaria */
+  &.secondary {
+    .autocomplete-field {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+}

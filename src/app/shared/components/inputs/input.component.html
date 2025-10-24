@@ -1,15 +1,21 @@
-<div class="form-group">
-  @if (label) {
-  <label>{{ label }}</label>
-  }
+<div [ngClass]="variant" class="form-group">
+  <ng-container *ngIf="label && variant === 'login'">
+    <label>{{ label }}</label>
+  </ng-container>
+
   <input
     [type]="type"
     [placeholder]="placeholder"
     [formControl]="formControl"
-    [class.error]="control.invalid && control.touched"
-    class="form-control"
+    [ngClass]="{
+      'form-control': true,
+      'form-control-login': variant === 'login',
+      'form-control-dashboard': variant === 'dashboard',
+      error: control.invalid && control.touched
+    }"
   />
-  @if (control.invalid && control.touched) {
-  <small class="error">{{ getErrorMessage() }}</small>
-  }
+
+  <ng-container *ngIf="control.invalid && control.touched && variant === 'login'">
+    <small class="error">{{ getErrorMessage() }}</small>
+  </ng-container>
 </div>

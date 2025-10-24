@@ -1,0 +1,25 @@
+<form class="autocomplete-form" [ngClass]="variant" autocomplete="off">
+  <div class="autocomplete-field">
+    <label class="autocomplete-label">{{ label }}</label>
+
+    <input
+      type="text"
+      [placeholder]="placeholder"
+      [formControl]="control"
+      (focus)="panelOpen = true"
+      (blur)="panelOpen = false"
+    />
+    <!-- Panel de opciones -->
+    <div class="autocomplete-panel" *ngIf="panelOpen">
+      <div class="autocomplete-option disabled" *ngIf="loading">Cargando...</div>
+
+      <div
+        class="autocomplete-option"
+        *ngFor="let option of filteredOptions$ | async"
+        (click)="onSelect(option)"
+      >
+        {{ option }}
+      </div>
+    </div>
+  </div>
+</form>

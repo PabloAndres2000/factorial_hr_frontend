@@ -14,6 +14,7 @@ export class InputComponent {
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
   @Input() control!: AbstractControl;
+  @Input() variant: 'login' | 'dashboard' = 'login';
 
   get formControl(): FormControl {
     return this.control as FormControl;

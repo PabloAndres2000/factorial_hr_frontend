@@ -1,3 +1,4 @@
+// Estilos base de app-input
 .form-group {
   display: flex;
   flex-direction: column;
@@ -7,12 +8,56 @@
 .form-control {
   width: 100%;
   box-sizing: border-box;
+  font-size: 0.9375rem;
+  color: #000000;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cccccc;
+  background: #ffffff;
+  transition: all 0.3s;
+
+  &::placeholder {
+    color: #999999;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    background: #f5f5f5;
+  }
 }
 
 label {
   display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
 }
 
 .error {
   display: block;
+  color: #ef4444;
+  font-size: 0.8125rem;
+  margin-top: 0.25rem;
+}
+
+// Variantes
+.dashboard {
+  .form-control {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border-radius: 0.625rem;
+    backdrop-filter: blur(10px);
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:focus {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+      outline: none;
+    }
+  }
 }
