@@ -71,15 +71,13 @@
         <a href="/auth/forgot-password" class="forgot-link">¿Olvidaste tu contraseña?</a>
       </div>
 
-      <button type="submit" class="submit-button" [disabled]="isLoading()">
-        <ng-container *ngIf="isLoading(); else notLoading">
-          <span class="ccspinner"></span>
-          <span class="button-text">Iniciando sesión...</span>
-        </ng-container>
-        <ng-template #notLoading>
-          <span class="button-text">Iniciar sesión</span>
-        </ng-template>
-      </button>
+      <app-button
+        label="Iniciar sesión"
+        type="submit"
+        [loading]="isLoading()"
+        loadingText="Iniciando sesión..."
+        variant="login"
+      ></app-button>
     </form>
 
     <div class="login-footer">

@@ -1,0 +1,10 @@
+<button [type]="type" [disabled]="disabled || loading" [ngClass]="variant" class="app-button">
+  <ng-container *ngIf="!loading; else loadingState">
+    {{ label }}
+  </ng-container>
+
+  <ng-template #loadingState>
+    <span class="spinner"></span>
+    <span class="loading-text">{{ loadingText }}</span>
+  </ng-template>
+</button>
