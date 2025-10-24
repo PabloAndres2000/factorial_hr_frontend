@@ -1,0 +1,15 @@
+<div class="form-group">
+  @if (label) {
+  <label>{{ label }}</label>
+  }
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="formControl"
+    [class.error]="control.invalid && control.touched"
+    class="form-control"
+  />
+  @if (control.invalid && control.touched) {
+  <small class="error">{{ getErrorMessage() }}</small>
+  }
+</div>
