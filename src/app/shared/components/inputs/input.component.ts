@@ -13,14 +13,19 @@ export class InputComponent {
   @Input() label!: string;
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
-  @Input() control!: AbstractControl;
+  @Input() control!: AbstractControl | null;
   @Input() variant: 'login' | 'dashboard' = 'login';
+  @Input() errorMessage: string = '';
 
-  get formControl(): FormControl {
-    return this.control as FormControl;
+  get formControl(): FormControl | null {
+    return this.control as FormControl | null;
   }
 
   getErrorMessage(): string {
+    if (!this.control) {
+      return '';
+    }
+
     if (this.control.hasError('required')) {
       return `${this.label || 'Este campo'} es obligatorio.`;
     }

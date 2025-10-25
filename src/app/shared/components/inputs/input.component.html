@@ -3,19 +3,34 @@
     <label>{{ label }}</label>
   </ng-container>
 
-  <input
-    [type]="type"
-    [placeholder]="placeholder"
-    [formControl]="formControl"
-    [ngClass]="{
-      'form-control': true,
-      'form-control-login': variant === 'login',
-      'form-control-dashboard': variant === 'dashboard',
-      error: control.invalid && control.touched
-    }"
-  />
+  <ng-container *ngIf="formControl; else noControl">
+    <input
+      [type]="type"
+      [placeholder]="placeholder"
+      [formControl]="formControl"
+      [ngClass]="{
+        'form-control': true,
+        'form-control-login': variant === 'login',
+        'form-control-dashboard': variant === 'dashboard',
+        error: control && control.invalid && control.touched
+      }"
+    />
+  </ng-container>
 
-  <ng-container *ngIf="control.invalid && control.touched && variant === 'login'">
+  <ng-template #noControl>
+    <input
+      [type]="type"
+      [placeholder]="placeholder"
+      [ngClass]="{
+        'form-control': true,
+        'form-control-login': variant === 'login',
+        'form-control-dashboard': variant === 'dashboard'
+      }"
+      disabled
+    />
+  </ng-template>
+
+  <ng-container *ngIf="control && control.invalid && control.touched && variant === 'login'">
     <small class="error">{{ getErrorMessage() }}</small>
   </ng-container>
 </div>

@@ -1,0 +1,24 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1 class="logo">Factorial HR</h1>
+      <p class="subtitle">Bienvenido de nuevo</p>
+    </div>
+
+    <div class="login-form">
+      <app-auth-form
+        [isLoading]="isLoading"
+        [errorMessage]="errorMessage"
+        (formSubmit)="onFormSubmit($event)"
+      ></app-auth-form>
+
+      <div class="form-options">
+        <a href="/auth/forgot-password" class="forgot-link">¿Olvidaste tu contraseña?</a>
+      </div>
+    </div>
+
+    <div class="login-footer">
+      <p>¿No tienes una cuenta? <a href="/auth/register" class="register-link">Regístrate</a></p>
+    </div>
+  </div>
+</div>

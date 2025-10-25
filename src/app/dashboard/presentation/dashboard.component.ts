@@ -1,26 +1,13 @@
 import { Component, type OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { InputComponent } from '../shared/components/inputs/input.component';
-import { DropdownMenuComponent } from '../shared/menu/dropdown-menu.component';
-interface DashboardStats {
-  activeEmployees: number;
-  inactiveEmployees: number;
-  paidSettlements: number;
-  pendingApprovals: number;
-  attendanceRate: number;
-  upcomingShifts: number;
-  avgHoursWorked: number;
-}
-
-interface RecentActivity {
-  id: number;
-  type: 'settlement' | 'attendance' | 'shift';
-  employee: string;
-  action: string;
-  time: string;
-  status: 'completed' | 'pending' | 'active';
-}
+import { InputComponent } from '../../shared/components/inputs/input.component';
+import { DropdownMenuComponent } from '../../shared/components/dropdown-menu/dropdown-menu.component';
+import {
+  DashboardUseCase,
+  DashboardStats,
+  RecentActivity,
+} from '../application/dashboard.use-case';
 
 @Component({
   selector: 'app-dashboard',
@@ -52,69 +39,25 @@ export class DashboardComponent implements OnInit {
   userEmail = 'john.anderson@company.com';
   userAvatar = 'assets/images/yo_photoshop.jpeg';
 
+  constructor(private dashboardUseCase: DashboardUseCase) {}
+
   ngOnInit(): void {
     this.currentMonth = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
     this.loadDashboardData();
   }
 
   loadDashboardData(): void {
-    // Simulate API call with setTimeout
-    setTimeout(() => {
-      this.stats = {
-        activeEmployees: 247,
-        inactiveEmployees: 12,
-        paidSettlements: 189,
-        pendingApprovals: 8,
-        attendanceRate: 94.5,
-        upcomingShifts: 156,
-        avgHoursWorked: 42.3,
-      };
-
-      this.recentActivities = [
-        {
-          id: 1,
-          type: 'settlement',
-          employee: 'Sarah Johnson',
-          action: 'Settlement processed',
-          time: '2 minutes ago',
-          status: 'completed',
-        },
-        {
-          id: 2,
-          type: 'attendance',
-          employee: 'Michael Chen',
-          action: 'Checked in',
-          time: '15 minutes ago',
-          status: 'active',
-        },
-        {
-          id: 3,
-          type: 'shift',
-          employee: 'Emily Rodriguez',
-          action: 'Shift swap requested',
-          time: '1 hour ago',
-          status: 'pending',
-        },
-        {
-          id: 4,
-          type: 'settlement',
-          employee: 'David Kim',
-          action: 'Settlement approved',
-          time: '2 hours ago',
-          status: 'completed',
-        },
-        {
-          id: 5,
-          type: 'attendance',
-          employee: 'Jessica Martinez',
-          action: 'Checked out',
-          time: '3 hours ago',
-          status: 'completed',
-        },
-      ];
-
-      this.loading = false;
-    }, 800);
+    this.dashboardUseCase.loadDashboardData().subscribe({
+      next: (data) => {
+        this.stats = data.stats;
+        this.recentActivities = data.activities;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading dashboard data:', error);
+        this.loading = false;
+      },
+    });
   }
 
   getStatusClass(status: string): string {
