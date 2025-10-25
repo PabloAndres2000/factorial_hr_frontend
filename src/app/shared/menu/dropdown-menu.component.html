@@ -1,0 +1,51 @@
+<div class="dropdown-container">
+  <!-- Trigger Button -->
+  <button class="dropdown-trigger" (click)="toggleDropdown()">
+    <img *ngIf="header?.avatarUrl" [src]="header?.avatarUrl" class="trigger-avatar" />
+    <svg
+      *ngIf="!header?.avatarUrl"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div class="dropdown-menu" [ngClass]="variant" *ngIf="isOpen">
+    <div class="dropdown-header" *ngIf="header">
+      <img *ngIf="header.avatarUrl" [src]="header.avatarUrl" class="dropdown-avatar" />
+      <div class="dropdown-header-info">
+        <p class="dropdown-title" *ngIf="header.title">{{ header.title }}</p>
+        <p class="dropdown-subtitle" *ngIf="header.subtitle">{{ header.subtitle }}</p>
+      </div>
+    </div>
+
+    <div class="dropdown-divider" *ngIf="header"></div>
+
+    <button
+      *ngFor="let item of items"
+      class="dropdown-item"
+      [ngClass]="{ logout: item.type === 'danger' }"
+      (click)="handleItemClick(item)"
+    >
+      <svg
+        *ngIf="item.icon"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path [attr.d]="item.icon"></path>
+      </svg>
+      <span>{{ item.label }}</span>
+    </button>
+  </div>
+</div>

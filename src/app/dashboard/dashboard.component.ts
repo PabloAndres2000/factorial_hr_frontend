@@ -2,6 +2,7 @@ import { Component, type OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../shared/components/inputs/input.component';
+import { DropdownMenuComponent } from '../shared/menu/dropdown-menu.component';
 interface DashboardStats {
   activeEmployees: number;
   inactiveEmployees: number;
@@ -24,7 +25,7 @@ interface RecentActivity {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, InputComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, InputComponent, DropdownMenuComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -152,10 +153,6 @@ export class DashboardComponent implements OnInit {
   openSettings(): void {
     console.log('[v0] Settings clicked');
     // Navigate to settings page or open settings modal
-  }
-
-  toggleUserMenu(): void {
-    this.isUserMenuOpen = !this.isUserMenuOpen;
   }
 
   viewProfile(): void {
