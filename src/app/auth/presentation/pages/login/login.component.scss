@@ -229,3 +229,13 @@
     gap: 0.75rem;
   }
 }
+
+#googleSignInButton div {
+  border-radius: 8px !important;
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+.abcRioButtonContents span {
+  font-weight: 500;
+}

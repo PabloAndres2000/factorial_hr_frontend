@@ -1,70 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, delay } from 'rxjs/operators';
-import { LoginCredentials, AuthResponse, User } from '../../domain/models/user.model';
+import { Observable } from 'rxjs';
+import { AuthResponse, LoginCredentials, User } from '../../domain/models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthApi {
-  private readonly baseUrl = '/api/auth';
+  private readonly baseUrl = 'http://localhost:8000/api/authentications';
 
   constructor(private http: HttpClient) {}
 
   login(credentials: LoginCredentials): Observable<AuthResponse> {
-    // TODO: Replace with real API call
-    // For now, simulate API call with mock data
-    return of({
-      user: {
-        id: '1',
-        email: credentials.email,
-        name: 'Demo User',
-        role: 'admin',
-        isActive: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      token: 'fake-jwt-token',
-    }).pipe(delay(500));
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login/`, credentials);
   }
 
   logout(): Observable<void> {
-    // TODO: Replace with real API call
-    return of(void 0).pipe(delay(200));
+    return this.http.post<void>(`${this.baseUrl}/logout/`, {});
   }
 
   getCurrentUser(): Observable<User | null> {
-    // TODO: Replace with real API call
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return of(null);
-    }
-
-    return of({
-      id: '1',
-      email: 'demo@user.com',
-      name: 'Demo User',
-      role: 'admin',
-      isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }).pipe(delay(200));
+    return this.http.get<User | null>(`${this.baseUrl}/me/`);
   }
 
   refreshToken(): Observable<AuthResponse> {
-    // TODO: Replace with real API call
-    return of({
-      user: {
-        id: '1',
-        email: 'demo@user.com',
-        name: 'Demo User',
-        role: 'admin',
-        isActive: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+    return this.http.post<AuthResponse>(`${this.baseUrl}/refresh/`, {});
+  }
+
+  // 🆕 Google OAuth
+  loginWithGoogle(accessToken: string): Observable<AuthResponse> {
+    const url = `${this.baseUrl}/external-login/`;
+    const body = { provider: 'google', access_token: accessToken };
+    const options = {
+      headers: {
+        Authorization: `Token d41e099da8caa49a5fd944ec383ed7b43e108e92`,
       },
-      token: 'new-fake-jwt-token',
-    }).pipe(delay(300));
+      responseType: 'json' as const, // asegura que Angular interprete la respuesta como JSON
+    };
+
+    console.log('loginWithGoogle call:', { url, body, options });
+
+    return this.http.post<AuthResponse>(url, body, options);
   }
 }

@@ -1,3 +1,5 @@
+// src/app/auth/infrastructure/api/auth-api.service.ts
+
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError, delay } from 'rxjs';
 import { AuthRepository } from '../../domain/repositories/auth.repository';
@@ -48,5 +50,15 @@ export class AuthRepositoryMock extends AuthRepository {
 
   isAuthenticated(): boolean {
     return true;
+  }
+
+  loginWithGoogle(idToken: string): Observable<AuthResponse> {
+    // Simula una autenticación exitosa vía Google OAuth
+    const response: AuthResponse = {
+      token: 'fake-google-jwt-token',
+      user: this.mockUser,
+    };
+    // Se puede tener una ligera demora para simular la red, como en login.
+    return of(response).pipe(delay(1000));
   }
 }

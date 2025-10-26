@@ -1,3 +1,4 @@
+// src/app/auth/infrastructure/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -46,5 +47,14 @@ export class AuthService implements AuthRepository {
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem(this.tokenKey);
+  }
+
+  loginWithGoogle(idToken: string): Observable<AuthResponse> {
+    return this.authApi.loginWithGoogle(idToken).pipe(
+      tap((response) => {
+        localStorage.setItem(this.tokenKey, response.token);
+        this.router.navigate(['/dashboard']);
+      })
+    );
   }
 }

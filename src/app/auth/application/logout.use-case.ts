@@ -1,3 +1,4 @@
+// src/app/auth/application/logout.use-case.ts
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthRepository } from '../domain/repositories/auth.repository';
