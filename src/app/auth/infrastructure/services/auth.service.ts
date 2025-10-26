@@ -52,7 +52,7 @@ export class AuthService implements AuthRepository {
   loginWithGoogle(idToken: string): Observable<AuthResponse> {
     return this.authApi.loginWithGoogle(idToken).pipe(
       tap((response) => {
-        localStorage.setItem(this.tokenKey, response.token);
+        localStorage.setItem('token', response.token);
         this.router.navigate(['/dashboard']);
       })
     );

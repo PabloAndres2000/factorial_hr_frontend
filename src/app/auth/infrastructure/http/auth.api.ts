@@ -31,15 +31,9 @@ export class AuthApi {
   loginWithGoogle(accessToken: string): Observable<AuthResponse> {
     const url = `${this.baseUrl}/external-login/`;
     const body = { provider: 'google', access_token: accessToken };
-    const options = {
-      headers: {
-        Authorization: `Token d41e099da8caa49a5fd944ec383ed7b43e108e92`,
-      },
-      responseType: 'json' as const, // asegura que Angular interprete la respuesta como JSON
-    };
 
-    console.log('loginWithGoogle call:', { url, body, options });
-
-    return this.http.post<AuthResponse>(url, body, options);
+    return this.http.post<AuthResponse>(url, body, {
+      responseType: 'json',
+    });
   }
 }
