@@ -9,6 +9,15 @@ import {
   RecentActivity,
 } from '../application/dashboard.use-case';
 
+import { AuthService } from '../../auth/infrastructure/services/auth.service';
+
+interface UserMenuItem {
+  label: string;
+  icon: string;
+  action: () => void;
+  type?: 'default' | 'danger';
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -39,7 +48,22 @@ export class DashboardComponent implements OnInit {
   userEmail = 'john.anderson@company.com';
   userAvatar = 'assets/images/yo_photoshop.jpeg';
 
-  constructor(private dashboardUseCase: DashboardUseCase) {}
+  // Ahora definimos el menú del usuario de forma legible y reutilizable
+  userMenuItems: UserMenuItem[] = [
+    {
+      label: 'Mi Perfil',
+      icon: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2',
+      action: () => this.viewProfile(),
+    },
+    {
+      label: 'Logout',
+      icon: 'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17 L21 12 16 7 M21 12 L9 12',
+      type: 'danger',
+      action: () => this.logout(),
+    },
+  ];
+
+  constructor(private dashboardUseCase: DashboardUseCase, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.currentMonth = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
@@ -105,8 +129,16 @@ export class DashboardComponent implements OnInit {
   }
 
   logout(): void {
-    console.log('[v0] Logout clicked');
     this.isUserMenuOpen = false;
-    // Implement logout logic here
+    this.authService.logout().subscribe({
+      next: () => {
+        console.log('Logout successful');
+      },
+      error: (error) => {
+        console.error('Error during logout:', error);
+        // Si hay error, igual limpiamos el token local
+        localStorage.removeItem('token');
+      },
+    });
   }
 }

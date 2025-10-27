@@ -85,19 +85,7 @@
           [isOpen]="isUserMenuOpen"
           [variant]="'dashboard'"
           [header]="{ title: userName, subtitle: userEmail, avatarUrl: userAvatar }"
-          [items]="[
-            {
-              label: 'Mi Perifl',
-              icon: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 7 r4',
-              action: viewProfile
-            },
-            {
-              label: 'Logout',
-              icon: 'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4 M16 17 L21 12 16 7 M21 12 L9 12',
-              type: 'danger',
-              action: logout
-            }
-          ]"
+          [items]="userMenuItems"
           (toggle)="isUserMenuOpen = $event"
         ></app-dropdown-menu>
       </div>

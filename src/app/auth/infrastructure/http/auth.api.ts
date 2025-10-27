@@ -32,6 +32,9 @@ export class AuthApi {
     const url = `${this.baseUrl}/external-login/`;
     const body = { provider: 'google', access_token: accessToken };
 
+    console.log('Login with Google - URL:', url);
+    console.log('Login with Google - Body:', body);
+
     return this.http.post<AuthResponse>(url, body, {
       responseType: 'json',
     });

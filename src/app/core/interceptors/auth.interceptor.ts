@@ -5,17 +5,22 @@ export const AuthInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next
 ): Observable<HttpEvent<unknown>> => {
-  const token = localStorage.getItem('token');
+  // Verificar si la URL actual necesita el token
+  // Excluir URLs de login y autenticación externa (no añadir Authorization header)
+  const shouldExcludeToken = req.url.includes('/login/') || req.url.includes('/external-login/');
 
-  if (token) {
-    const cloned = req.clone({
-      setHeaders: {
-        Authorization: `Token ${token}`,
-      },
-    });
-
-    return next(cloned);
-  } else {
+  // Si la URL está excluida, continuar sin añadir headers
+  if (shouldExcludeToken || !localStorage.getItem('token')) {
     return next(req);
   }
+
+  // Si hay token y la URL no está excluida, añadir el token
+  const token = localStorage.getItem('token');
+  const cloned = req.clone({
+    setHeaders: {
+      Authorization: `Token ${token}`,
+    },
+  });
+
+  return next(cloned);
 };
